@@ -73,8 +73,8 @@ public class MailClient extends Frame {
         add(buttonPanel, BorderLayout.SOUTH);
         pack();
         show();
-        fromField.setText("test@test.dk");
-        toField.setText("test@test.dk");
+        fromField.setText("info@comit.dev");
+        toField.setText("s224317@student.dtu.dk");
         subjectField.setText("test af mail client");
         serverField.setText("datacomm.bhsi.xyz");
     }

@@ -22,7 +22,7 @@ public class SMTPConnection {
     /* Create an SMTPConnection object. Create the socket and the 
        associated streams. Initialize SMTP connection. */
     public SMTPConnection(Envelope envelope) throws IOException {
-        connection = new Socket("datacomm.bhsi.xyz", 2526);
+        connection = new Socket("datacomm.bhsi.xyz", 25);
         fromServer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
         toServer = new DataOutputStream(connection.getOutputStream());
 
