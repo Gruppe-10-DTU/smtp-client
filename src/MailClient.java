@@ -72,6 +72,10 @@ public class MailClient extends Frame {
         add(buttonPanel, BorderLayout.SOUTH);
         pack();
         show();
+        fromField.setText("test@test.dk");
+        toField.setText("test@test.dk");
+        subjectField.setText("test af mail client");
+        serverField.setText("datacomm.bhsi.xyz");
     }
 
     static public void main(String argv[]) {
@@ -114,6 +118,7 @@ public class MailClient extends Frame {
 	    /* Create the envelope, open the connection and try to send
 	       the message. */
             Envelope envelope;
+            SMTPConnection connection;
             try {
                 envelope = new Envelope(mailMessage,
                         serverField.getText());
@@ -122,7 +127,7 @@ public class MailClient extends Frame {
                 return;
             }
             try {
-                SMTPConnection connection = new SMTPConnection(envelope);
+                connection = new SMTPConnection(envelope);
                 connection.send(envelope);
                 connection.close();
             } catch (IOException error) {

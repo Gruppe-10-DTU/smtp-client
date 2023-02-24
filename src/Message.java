@@ -78,7 +78,7 @@ public class Message {
     public String toString() {
         String res;
 
-        res = Headers + CRLF;
+        res = CRLF + Headers + CRLF;
         res += Body;
         return res;
     }
