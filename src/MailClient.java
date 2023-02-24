@@ -15,6 +15,7 @@ public class MailClient extends Frame {
     private Button btSend = new Button("Send");
     private Button btClear = new Button("Clear");
     private Button btQuit = new Button("Quit");
+    private Button btImage = new Button("Image");
     private Label serverLabel = new Label("Local mailserver:");
     private TextField serverField = new TextField("", 40);
     private Label fromLabel = new Label("From:");
@@ -108,6 +109,7 @@ public class MailClient extends Frame {
                     toField.getText(),
                     subjectField.getText(),
                     messageText.getText());
+            mailMessage.addPicture("teacher.jpeg");
 
 	    /* Check that the message is valid, i.e., sender and
 	       recipient addresses look ok. */

@@ -47,6 +47,7 @@ public class SMTPConnection {
        caller. */
     public void send(Envelope envelope) throws IOException {
         System.out.println("Sending mail");
+        //this.close();
         sendCommand("MAIL FROM: <"+envelope.Sender+">", 250);
         sendCommand("RCPT TO: <" + envelope.Recipient+">", 250);
         sendCommand("DATA " + envelope.Message, 354);

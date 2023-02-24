@@ -1,3 +1,8 @@
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 import java.text.*;
 
@@ -30,8 +35,8 @@ public class Message {
         Headers = "From: " + From + CRLF;
         Headers += "To: " + To + CRLF;
         Headers += "Subject: " + subject.trim() + CRLF;
-
-	/* A close approximation of the required format. Unfortunately
+        Headers += "MIME-Version: 1.0" + CRLF;
+	    /* A close approximation of the required format. Unfortunately
 	   only GMT. */
         SimpleDateFormat format =
                 new SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss 'GMT'");
@@ -40,6 +45,27 @@ public class Message {
         Body = text;
     }
 
+    public void addPicture(String fileName){
+        String guid = UUID.randomUUID().toString();
+        Headers += "Content-Type: multipart/mixed;" + "boundary=\"" + guid + "\"" + CRLF;
+        guid = "--" + guid;
+        Body += guid + CRLF;
+        Body += "Content-Type:application/octet-stream;name="+fileName + CRLF;
+        Body += "Content-Transfer-Encoding:base64" + CRLF;
+        Body += "Content-Disposition:attachment;filename=\""+ fileName + "\"" + CRLF;
+        try {
+            var test = this.getClass().getResourceAsStream("/teacher.jpeg");
+            String encodedFile = Base64.getEncoder().encodeToString(test.readAllBytes());
+            Body += CRLF + encodedFile;
+        }catch (IOException e){
+            System.out.println("Not found");
+        }
+        Body += CRLF + guid;
+
+    }
+    public void addHeader(String header){
+        this.Headers = this.Headers + CRLF + header;
+    }
     /* Two functions to access the sender and recipient. */
     public String getFrom() {
         return From;
@@ -79,7 +105,7 @@ public class Message {
         String res;
 
         res = CRLF + Headers + CRLF;
-        res += Body;
+        res += Body + CRLF;
         return res;
     }
 }
