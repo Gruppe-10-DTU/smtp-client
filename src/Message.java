@@ -47,8 +47,9 @@ public class Message {
 
     public void addPicture(String fileName){
         String guid = UUID.randomUUID().toString();
-        Headers += "Content-Type: multipart/mixed;" + "boundary=\"" + guid + "\"" + CRLF;
+        Headers += "Content-Type:multipart/mixed;boundary=\"" + guid + "\"" + CRLF;
         guid = "--" + guid;
+        Body = guid + CRLF + "Content-Type: text/plain; charset=US-ASCII" + CRLF + CRLF + Body + CRLF;
         Body += guid + CRLF;
         Body += "Content-Type:application/octet-stream;name="+fileName + CRLF;
         Body += "Content-Transfer-Encoding:base64" + CRLF;
@@ -60,7 +61,7 @@ public class Message {
         }catch (IOException e){
             System.out.println("Not found");
         }
-        Body += CRLF + guid;
+        //Body += CRLF + guid + CRLF;
 
     }
     public void addHeader(String header){
