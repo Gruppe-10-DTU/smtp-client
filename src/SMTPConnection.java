@@ -55,15 +55,13 @@ public class SMTPConnection{
        caller. */
     public void send(Envelope envelope) throws IOException {
         /* Fill in */
-        sendCommand("Mail from: " + envelope.Sender, 250);
+        sendCommand("MAIL FROM: <"+envelope.Sender+">", 250);
 
-        sendCommand("rcpt to: " + envelope.Recipient, 250);
+        sendCommand("RCPT TO: <" + envelope.Recipient+">", 250);
 
-        sendCommand(envelope.Message.toString(), 354);
+        sendCommand("DATA " + envelope.Message, 354);
 
-        sendCommand(envelope.Message.toString(),250);
-
-        sendCommand(envelope.Message.toString(), 221);
+        sendCommand(".", 250);
 	/* Send all the necessary commands to send a message. Call
 	   sendCommand() to do the dirty work. Do _not_ catch the
 	   exception thrown from sendCommand(). */
